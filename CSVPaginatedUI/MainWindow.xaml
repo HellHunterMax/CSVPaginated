@@ -27,6 +27,8 @@
         </DataGrid>
         <Button x:Name="NextPageButton" Content="Next" Grid.Column="1" Grid.Row="2" Click="NextPageButton_Click" />
         <Button x:Name="PreviousPageButton" Content="Previous" Grid.Column="2" Grid.Row="2" Click="PreviousPageButton_Click" />
+        <TextBlock x:Name="PagesTextBlock" Grid.Column="2" Grid.Row="1" Text="Pages: " TextWrapping="Wrap"/>
+        <TextBlock x:Name="PageNumberTextBlock" Grid.Column="2"  Margin="0,24,0,0" Grid.Row="1" Text="" TextWrapping="Wrap"/>
 
     </Grid>
 </Window>

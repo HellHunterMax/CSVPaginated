@@ -40,6 +40,10 @@ namespace CSVPaginatedApp.Repository
 
             return users;
         }
+        public int GetNumberOfPages(int amount)
+        {
+            return File.ReadLines(@"C:\Code_Projects\2021\CSVPaginated\CSVPaginated\CSVPaginatedApp\Data\targets.csv").Count() / amount;
+        }
 
         private User CreateUserFromCsvLine(string line)
         {
@@ -83,5 +87,6 @@ namespace CSVPaginatedApp.Repository
             }
             return date;
         }
+
     }
 }

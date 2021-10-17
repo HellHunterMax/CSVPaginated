@@ -23,8 +23,8 @@ namespace CSVPaginatedUI
     /// </summary>
     public partial class MainWindow : Window
     {
-        //DataContext="{Binding Path=MyCollection}"
         private int _Page = 0;
+        private int _NumberOfPages;
         private int _NumberOfUsers = 10;
         public IEnumerable<User> _Users;
         private readonly IUserRepository repo;
@@ -34,25 +34,26 @@ namespace CSVPaginatedUI
         public MainWindow()
         {
             repo = new UserRepository();
+            _NumberOfPages = repo.GetNumberOfPages(_NumberOfUsers);
 
             InitializeComponent();
+            PagesTextBlock.Text += $"{_NumberOfPages}";
             itemCollectionViewSource = (CollectionViewSource)(FindResource("MyCollection"));
 
-            UpdateUsersAsync().Wait();
-            // this.UsersDatagrid.ItemsSource = MyCollection;
+            new Action(async () => await UpdateUsersAsync())();
         }
 
-        private void PreviousPageButton_Click(object sender, RoutedEventArgs e)
+        private async void PreviousPageButton_Click(object sender, RoutedEventArgs e)
         {
-            PreviousPage();
+            await PreviousPage();
         }
 
-        private void NextPageButton_Click(object sender, RoutedEventArgs e)
+        private async void NextPageButton_Click(object sender, RoutedEventArgs e)
         {
-            NextPage();
+            await NextPage();
         }
 
-        private void PreviousPage()
+        private async Task PreviousPage()
         {
             if (_Page < 1)
             {
@@ -60,17 +61,17 @@ namespace CSVPaginatedUI
             }
 
             _Page--;
-            UpdateUsersAsync().Wait();
+            await UpdateUsersAsync();
         }
 
-        private void NextPage()
+        private async Task NextPage()
         {
-            if (_Users.Count() < 10)
+            if (_Page +1 >= _NumberOfPages)
             {
                 return;
             }
             _Page++;
-            UpdateUsersAsync().Wait();
+            await UpdateUsersAsync();
         }
 
         private async Task UpdateUsersAsync()
@@ -78,6 +79,7 @@ namespace CSVPaginatedUI
             _Users = await repo.GetUsersAsync(_NumberOfUsers, _Page);
             MyCollection = new ObservableCollection<User>(_Users);
             itemCollectionViewSource.Source = MyCollection;
+            PageNumberTextBlock.Text = $"Page: {_Page + 1}";
         }
     }
 }
