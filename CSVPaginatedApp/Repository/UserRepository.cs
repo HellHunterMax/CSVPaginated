@@ -10,12 +10,15 @@ using System.Threading.Tasks;
 
 namespace CSVPaginatedApp.Repository
 {
+    //TODO rework the repo into the Service
+    //HOW? Make the repo work for the service. Let the service ask for new data from the csv file.
+    // Add model building to the model. or create a service for it. as its specific for this csv file.
     public class UserRepository : IUserRepository
     {
         private readonly NumberStyles Style = NumberStyles.AllowCurrencySymbol | NumberStyles.Currency;
         private readonly CultureInfo Provider = new("en-US");
 
-        public async Task<List<User>> GetUsers(int amount, int page)
+        public async Task<IEnumerable<User>> GetUsers(int amount, int page)
         {
             int lineStart = page * amount + 1;
 

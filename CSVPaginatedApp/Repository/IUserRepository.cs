@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace CSVPaginatedApp.Repository
 {
-    interface IUserRepository
+    public interface IUserRepository
     {
-        Task<List<User>> GetUsers(int amount, int page);
+        Task<IEnumerable<User>> GetUsers(int amount, int page);
     }
 }

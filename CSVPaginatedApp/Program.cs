@@ -6,6 +6,7 @@ namespace CSVPaginatedApp
 {
     class Program
     {
+        [STAThread]
         static async Task Main(string[] args)
         {
             //TODO EXTRA: Filters. Age and Salary
