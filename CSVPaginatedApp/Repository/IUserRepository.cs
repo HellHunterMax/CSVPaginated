@@ -9,6 +9,6 @@ namespace CSVPaginatedApp.Repository
 {
     public interface IUserRepository
     {
-        Task<IEnumerable<User>> GetUsers(int amount, int page);
+        Task<IEnumerable<User>> GetUsersAsync(int amount, int page);
     }
 }

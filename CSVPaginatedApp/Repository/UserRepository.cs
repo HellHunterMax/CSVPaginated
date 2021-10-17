@@ -18,7 +18,7 @@ namespace CSVPaginatedApp.Repository
         private readonly NumberStyles Style = NumberStyles.AllowCurrencySymbol | NumberStyles.Currency;
         private readonly CultureInfo Provider = new("en-US");
 
-        public async Task<IEnumerable<User>> GetUsers(int amount, int page)
+        public async Task<IEnumerable<User>> GetUsersAsync(int amount, int page)
         {
             int lineStart = page * amount + 1;
 

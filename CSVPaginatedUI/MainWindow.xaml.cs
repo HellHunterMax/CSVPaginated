@@ -38,7 +38,7 @@ namespace CSVPaginatedUI
             InitializeComponent();
             itemCollectionViewSource = (CollectionViewSource)(FindResource("MyCollection"));
 
-            UpdateUsers();
+            UpdateUsersAsync().Wait();
             // this.UsersDatagrid.ItemsSource = MyCollection;
         }
 
@@ -60,7 +60,7 @@ namespace CSVPaginatedUI
             }
 
             _Page--;
-            UpdateUsers();
+            UpdateUsersAsync().Wait();
         }
 
         private void NextPage()
@@ -70,12 +70,12 @@ namespace CSVPaginatedUI
                 return;
             }
             _Page++;
-            UpdateUsers();
+            UpdateUsersAsync().Wait();
         }
 
-        private void UpdateUsers()
+        private async Task UpdateUsersAsync()
         {
-            _Users = repo.GetUsers(_NumberOfUsers, _Page).Result;
+            _Users = await repo.GetUsersAsync(_NumberOfUsers, _Page);
             MyCollection = new ObservableCollection<User>(_Users);
             itemCollectionViewSource.Source = MyCollection;
         }

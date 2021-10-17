@@ -14,7 +14,7 @@ namespace CSVPaginatedApp
 
             UserRepository repo = new();
 
-            var users = await repo.GetUsers(10, 4);
+            var users = await repo.GetUsersAsync(10, 4);
 
             foreach (var user in users)
             {
