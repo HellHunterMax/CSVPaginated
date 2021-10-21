@@ -23,6 +23,23 @@ namespace CSVPaginatedApp.Models
         public Decimal Salary { get; set; }
 
 
+        public int GetAge()
+        {
+            if (BirthDate.Date == new DateTime(01,01,0001).Date)
+            {
+                return -1;
+            }
+            var today = DateTime.Today;
+            var age = today.Year - BirthDate.Year;
+
+            if (BirthDate.Month < today.Month && BirthDate.Day < today.Day)
+            {
+                age--;
+            }
+
+            return age;
+        }
+
         public override string ToString()
         {
             var date = BirthDate == DateTime.ParseExact("01/01/0001", "MM/dd/yyyy", CultureInfo.InvariantCulture) ? "" : BirthDate.ToShortDateString();

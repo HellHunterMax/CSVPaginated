@@ -9,6 +9,7 @@ namespace CSVPaginatedApp.Service
 {
     public interface IAccountService
     {
-        Task<IEnumerable<User>> GetUsersAsync(int amount, int page);
+        Task<IEnumerable<User>> GetUsersAsync(int amount, int page, UserFilterDto filter);
+        int GetNumberOfPages(int amount);
     }
 }

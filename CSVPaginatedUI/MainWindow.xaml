@@ -20,6 +20,7 @@
             <RowDefinition Height="20" />
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="20" />
         </Grid.RowDefinitions>
         <DataGrid x:Name="UsersDatagrid" Grid.Row="1" Grid.Column="1" DataContext="{StaticResource MyCollection}"
@@ -29,6 +30,15 @@
         <Button x:Name="PreviousPageButton" Content="Previous" Grid.Column="2" Grid.Row="2" Click="PreviousPageButton_Click" />
         <TextBlock x:Name="PagesTextBlock" Grid.Column="2" Grid.Row="1" Text="Pages: " TextWrapping="Wrap"/>
         <TextBlock x:Name="PageNumberTextBlock" Grid.Column="2"  Margin="0,24,0,0" Grid.Row="1" Text="" TextWrapping="Wrap"/>
+        <TextBlock x:Name="MinimumSalaryTextBlock" Grid.Column="2" HorizontalAlignment="Left" Margin="0,48,0,0" Grid.Row="1" Text="MinimumSalary:" TextWrapping="Wrap"/>
+        <TextBox x:Name="MinimumSalaryTextBox" Grid.Column="2" Margin="0,72,0,0" Grid.Row="1" Text="0" TextWrapping="Wrap" InputScope="CurrencyAmount"/>
+        <TextBlock x:Name="MaximumSalaryTextBlock" Grid.Column="2" HorizontalAlignment="Left" Margin="0,96,0,0" Grid.Row="1" Text="MaximumSalary:" TextWrapping="Wrap"/>
+        <TextBox x:Name="MaximumSalaryTextBox" Grid.Column="2" Margin="0,120,0,0" Grid.Row="1" Text="1000000" TextWrapping="Wrap" InputScope="CurrencyAmount"/>
+        <TextBlock x:Name="MinimumAgeTextBlock" Grid.Column="2" HorizontalAlignment="Left" Margin="0,144,0,0" Grid.Row="1" Text="Minimum Age:" TextWrapping="Wrap"/>
+        <TextBox x:Name="MinimumAgeTextBox" Grid.Column="2" Margin="0,168,0,0" Grid.Row="1" Text="0" TextWrapping="Wrap" InputScope="Number"/>
+        <TextBlock x:Name="MaximumAgeTextBlock" Grid.Column="2" HorizontalAlignment="Left" Margin="0,192,0,0" Grid.Row="1" Text="Maximum Age:" TextWrapping="Wrap"/>
+        <TextBox x:Name="MaximumAgeTextBox"  Grid.Column="2" Margin="0,216,0,0" Grid.Row="1" Text="150" TextWrapping="Wrap" InputScope="Number"/>
+        <Button x:Name="FilterButton" Content="Filter" Grid.Column="2" Margin="0,240,0,0" Grid.Row="1" Click="FilterButton_Click" />
 
     </Grid>
 </Window>

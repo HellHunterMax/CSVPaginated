@@ -10,23 +10,40 @@ namespace CSVPaginatedApp.Service
 {
     public class AccountService : IAccountService
     {
-        private readonly IUserRepository _Repo;
+        private readonly IUserRepository _repo;
+        private int _pages;
 
         public AccountService(IUserRepository repo)
         {
-            _Repo = repo;
+            _repo = repo;
         }
 
-        public async Task<IEnumerable<User>> GetUsersAsync(int amount, int page)
+        public async Task<IEnumerable<User>> GetUsersAsync(int amount, int page, UserFilterDto filter)
         {
-            //@"C:\Code_Projects\2021\CSVPaginated\CSVPaginated\CSVPaginatedApp\Data\targets.csv"
-
             int lineStart = page * amount;
 
-            var users = await _Repo.GetUsersAsync();
+            var users = await _repo.GetUsersAsync();
+
+            users = users.Where(user => (user.GetAge() == -1 ||
+                                        (user.GetAge() >= filter.MinimumAge &&
+                                        user.GetAge() <= filter.MaximumAge)) &&
+                                        user.Salary >= filter.MinimumSalary &&
+                                        user.Salary <= filter.MaximumSalary);
+
+            _pages = users.Count() / amount;
+            if (users.Count() % amount != 0)
+            {
+                _pages++;
+            }
+
             List<User> usersToReturn = CreateUsersListPaginated(amount, lineStart, users);
 
             return usersToReturn;
+        }
+
+        public int GetNumberOfPages(int amount)
+        {
+            return _pages;
         }
 
         private static List<User> CreateUsersListPaginated(int amount, int lineStart, IEnumerable<User> users)

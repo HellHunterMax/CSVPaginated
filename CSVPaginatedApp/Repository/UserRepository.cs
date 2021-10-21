@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 
 namespace CSVPaginatedApp.Repository
 {
-    //TODO rework the repo into the Service
     public class UserRepository : IUserRepository
     {
         private readonly string _Path;
