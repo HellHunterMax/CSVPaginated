@@ -60,5 +60,6 @@ namespace CSVPaginatedApp.Repository
                 throw new ArgumentNullException("No valid Path was given."); //TODO create Exception for path.
             }
             //TODO create check to see if its CSV and an account file.
+        }
     }
 }

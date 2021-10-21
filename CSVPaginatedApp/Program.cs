@@ -1,5 +1,4 @@
-﻿using CSVPaginatedApp.Repository;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 
 namespace CSVPaginatedApp
@@ -11,15 +10,6 @@ namespace CSVPaginatedApp
         {
             //TODO EXTRA: Filters. Age and Salary
             //TODO EXTRA OrderBy lastname and firstname Salary Age
-
-            UserRepository repo = new();
-
-            var users = await repo.GetUsersAsync(10, 4);
-
-            foreach (var user in users)
-            {
-                Console.WriteLine(user);
-            }
         }
     }
 }

@@ -33,7 +33,7 @@ namespace CSVPaginatedUI
 
         public MainWindow()
         {
-            repo = new UserRepository();
+            repo = new UserRepository(@"C:\Code_Projects\2021\CSVPaginated\CSVPaginated\CSVPaginatedApp\Data\targets.csv");
             _NumberOfPages = repo.GetNumberOfPages(_NumberOfUsers);
 
             InitializeComponent();
