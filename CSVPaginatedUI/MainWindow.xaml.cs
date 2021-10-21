@@ -1,5 +1,6 @@
 ﻿using CSVPaginatedApp.Models;
 using CSVPaginatedApp.Repository;
+using CSVPaginatedApp.Service;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,18 +28,19 @@ namespace CSVPaginatedUI
         private int _NumberOfPages;
         private int _NumberOfUsers = 10;
         public IEnumerable<User> _Users;
-        private readonly IUserRepository repo;
-        private CollectionViewSource itemCollectionViewSource;
+        private readonly IAccountService _accountService;
+        private CollectionViewSource _itemCollectionViewSource;
         public ObservableCollection<User> MyCollection { get; set; }
 
         public MainWindow()
         {
-            repo = new UserRepository(@"C:\Code_Projects\2021\CSVPaginated\CSVPaginated\CSVPaginatedApp\Data\targets.csv");
-            _NumberOfPages = repo.GetNumberOfPages(_NumberOfUsers);
+            IUserRepository repository = new UserRepository(@"C:\Code_Projects\2021\CSVPaginated\CSVPaginated\CSVPaginatedApp\Data\targets.csv");
+            _accountService = new AccountService(repository);
+            _NumberOfPages = repository.GetNumberOfPages(_NumberOfUsers);
 
             InitializeComponent();
             PagesTextBlock.Text += $"{_NumberOfPages}";
-            itemCollectionViewSource = (CollectionViewSource)(FindResource("MyCollection"));
+            _itemCollectionViewSource = (CollectionViewSource)(FindResource("MyCollection"));
 
             new Action(async () => await UpdateUsersAsync())();
         }
@@ -76,9 +78,9 @@ namespace CSVPaginatedUI
 
         private async Task UpdateUsersAsync()
         {
-            _Users = await repo.GetUsersAsync(_NumberOfUsers, _Page);
+            _Users = await _accountService.GetUsersAsync(_NumberOfUsers, _Page);
             MyCollection = new ObservableCollection<User>(_Users);
-            itemCollectionViewSource.Source = MyCollection;
+            _itemCollectionViewSource.Source = MyCollection;
             PageNumberTextBlock.Text = $"Page: {_Page + 1}";
         }
     }

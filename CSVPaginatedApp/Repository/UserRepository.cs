@@ -22,23 +22,22 @@ namespace CSVPaginatedApp.Repository
             _Path = path;
         }
 
-        public async Task<IEnumerable<User>> GetUsersAsync(int amount, int page)
+        public async Task<IEnumerable<User>> GetUsersAsync()
         {
-            int lineStart = page * amount + 1;
+            var lines = await File.ReadAllLinesAsync(_Path);
 
             List<User> users = new();
-            using (var reader = new StreamReader(_Path))
+            foreach (var line in lines)
             {
-                for (int i = 0; i < lineStart; i++)
+                try
                 {
-                    reader.ReadLine();
-                }
-
-                while (!reader.EndOfStream && amount != users.Count)
-                {
-                    string line = await reader.ReadLineAsync();
                     User user = UserMap.Map(line);
                     users.Add(user);
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Could not map this:");
+                    Console.WriteLine(line);
                 }
             }
 
