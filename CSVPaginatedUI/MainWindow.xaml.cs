@@ -85,7 +85,6 @@ namespace CSVPaginatedUI
             if (_page + 1 > _numberOfPages )
             {
                 _page = _numberOfPages -1;
-                Users = await _accountService.GetUsersAsync(_numberOfUsers, _page, _filter);
             }
 
             MyCollection = new ObservableCollection<User>(Users);

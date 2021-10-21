@@ -30,15 +30,25 @@ namespace CSVPaginatedApp.Service
                                         user.Salary >= filter.MinimumSalary &&
                                         user.Salary <= filter.MaximumSalary);
 
-            _pages = users.Count() / amount;
-            if (users.Count() % amount != 0)
+            UpdateNumberOfPages(amount, users);
+
+            if (lineStart >= _pages * amount)
             {
-                _pages++;
+                lineStart = (_pages -1) * amount;
             }
 
             List<User> usersToReturn = CreateUsersListPaginated(amount, lineStart, users);
 
             return usersToReturn;
+        }
+
+        private void UpdateNumberOfPages(int amount, IEnumerable<User> users)
+        {
+            _pages = users.Count() / amount;
+            if (users.Count() % amount != 0)
+            {
+                _pages++;
+            }
         }
 
         public int GetNumberOfPages(int amount)
